@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm-run-all --parallel start:**",
+    "checkForFirestoreDBUrl": "node ./scripts/check-firestore-db-url-exists.js",
+    "checkForServiceAccountKey": "node ./scripts/check-for-service-account-key.js",
+    "start": "npm-run-all --parallel checkForFirestoreDBUrl checkForServiceAccountKey start:**",
     "start:server": "netlify-lambda serve --config webpack.functions.js functions",
     "build": "npm-run-all --parallel build:**",
     "build:app": "scripts/elm-optimize.sh",
