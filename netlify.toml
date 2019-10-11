@@ -1,0 +1,9 @@
+[build]
+    # This will run the site build
+    command = "npm run build"
+
+    # This is the directory to be published to netlify's CDN
+    publish = "dist/client"
+
+    # This is the directory to be deployed to netlify's lamda function
+    functions = "dist/server"
