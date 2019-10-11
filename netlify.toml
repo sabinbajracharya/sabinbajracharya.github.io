@@ -7,3 +7,6 @@
 
     # This is the directory to be deployed to netlify's lamda function
     functions = "dist/server"
+
+[template.environment]
+  FIRESTORE_DB_URL = "Your Firebase Firestore Database URL"
