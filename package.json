@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm-run-all --parallel start:**",
-    "start:server": "netlify-lambda serve functions",
+    "start:server": "netlify-lambda serve --config webpack.functions.js functions",
     "build": "npm-run-all --parallel build:**",
     "build:app": "scripts/elm-optimize.sh",
     "build:functions": "netlify-lambda build functions"
@@ -25,9 +25,11 @@
     "elm": "^0.19.0-no-deps",
     "netlify-lambda": "^1.6.3",
     "npm-run-all": "^4.1.5",
-    "uglify-js": "^3.6.1"
+    "uglify-js": "^3.6.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "firebase": "^7.2.0",
     "firebase-admin": "^8.6.0"
   }
 }
