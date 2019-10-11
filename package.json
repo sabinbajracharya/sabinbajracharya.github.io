@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/sabinbajracharya/personal-website#readme",
   "devDependencies": {
+    "elm": "^0.19.0-no-deps",
     "netlify-lambda": "^1.6.3",
     "npm-run-all": "^4.1.5"
   }
