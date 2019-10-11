@@ -78,4 +78,7 @@ view model =
     minute = String.fromInt (Time.toMinute model.zone model.time)
     second = String.fromInt (Time.toSecond model.zone model.time)
   in
-  h1 [] [ text (hour ++ ":" ++ minute ++ ":" ++ second) ]
+  div []
+  [ h1 [] [ text "Time" ]
+  , h2 [] [ text (hour ++ ":" ++ minute ++ ":" ++ second) ]
+  ]
