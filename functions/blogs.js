@@ -15,6 +15,7 @@ try {
 let db = admin.firestore();
 
 exports.handler = async (event, context) => {
+    console.log("Debug", process.versions);
     let blogsRef = db.collection('blog');
     let snapshot = await blogsRef.get();
     if (snapshot.empty) {
