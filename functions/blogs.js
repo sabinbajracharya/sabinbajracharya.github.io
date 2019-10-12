@@ -14,13 +14,13 @@ try {
 let db = admin.firestore();
 
 exports.handler = async (event, context) => {
-    console.log("Node.info", process.versions);
+    console.log("NodeInfo", process.versions);
     let blogsRef = db.collection('blog');
     let snapshot = await blogsRef.get();
     if (snapshot.empty) {
         return {
             statusCode: 204,
-            body: JSON.stringify({ message: "No blog posts." })
+            body: JSON.stringify({ message: "No content found." })
         };
     } else {
         return {
