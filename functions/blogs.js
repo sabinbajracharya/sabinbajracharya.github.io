@@ -13,7 +13,7 @@ exports.handler = async (event, context) => {
     let snapshot = await citiesRef.get();
     if (snapshot.empty) {
         return {
-            statusCode: 200,
+            statusCode: 204,
             body: JSON.stringify({ message: "No blog posts found." })
         };
     } else {
