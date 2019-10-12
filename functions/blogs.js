@@ -8,7 +8,6 @@ try {
     app = admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
         databaseURL: process.env.FIRESTORE_DB_URL,
-
     });
 }
 
