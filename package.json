@@ -11,7 +11,6 @@
     "start:server": "netlify-lambda serve --config webpack.functions.js functions",
     "build": "npm-run-all --parallel build:**",
     "build:app": "scripts/elm-optimize.sh",
-    "build:install": "npm install",
     "build:functions": "netlify-lambda build --config webpack.functions.js functions"
   },
   "repository": {
