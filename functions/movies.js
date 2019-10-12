@@ -1,13 +1,9 @@
-const MongoClient = require("mongodb").MongoClient;
-const ObjectId = require("mongodb").ObjectID;
-
-const CONNECTION_URL = process.env.CONNECTION_URL;
-const DATABASE_NAME = process.env.DATABASE_NAME;
+require('./config/env')();
+const { mongo, DATABASE_NAME } = require("./base/mongo");
 
 exports.handler = async (event, context) => {
-    let client = await MongoClient.connect(CONNECTION_URL);
-    let db = client.db(DATABASE_NAME)
-
+    let client = await mongo();
+    let db = client.db(DATABASE_NAME);
     try {
         let res = await db.collection('myMovies').find({}).toArray();
         return {
@@ -19,6 +15,19 @@ exports.handler = async (event, context) => {
             statusCode: 204,
             body: JSON.stringify({ message: "No content found!" })
         };
+    } finally {
+        client.close();
+    }
+};
+
+exports.TEST = async () => {
+    let client = await mongo();
+    let db = client.db(DATABASE_NAME);
+    try {
+        let res = await db.collection('myMovies').find({}).toArray();
+        console.log("res", JSON.stringify({ data: res}))
+    } catch (e) {
+        console.log("res", "No content found!");
     } finally {
         client.close();
     }
