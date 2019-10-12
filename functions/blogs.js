@@ -18,8 +18,8 @@ let db = admin.firestore();
 exports.handler = async (event, context) => {
     try{
         let citiesRef = db.collection('blog');
-        let snapshot = await citiesRef.get();
-        if (snapshot.empty) {
+        // let snapshot = await citiesRef.get();
+        if (true) {
             return {
                 statusCode: 204,
                 body: JSON.stringify({ message: "No blog posts found." })
