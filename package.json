@@ -34,7 +34,7 @@
     "firebase": "^7.2.0",
     "firebase-admin": "^8.6.0"
   },
-  "engineStrict" : true,
+  "engineStrict": true,
   "engines": {
     "node": "8.13.0"
   }
