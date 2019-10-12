@@ -1,3 +1,5 @@
+let serviceAccount = require('./config/init.js')();
+
 exports.handler = async (event, context) => {
     return {
         statusCode: 200,
