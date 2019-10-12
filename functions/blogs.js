@@ -21,8 +21,8 @@ exports.handler = async (event, context) => {
     try{
         let citiesRef = db.collection('blog');
         let snapshot = await citiesRef.get();
-        console.log("Blog", snapshot.);
-        if (true) {
+        console.log("Blog", snapshot.empty);
+        if (snapshot.empty) {
             return {
                 statusCode: 204,
                 body: JSON.stringify({ message: "No blog posts found." })
