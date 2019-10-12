@@ -16,17 +16,24 @@ try {
 let db = admin.firestore();
 
 exports.handler = async (event, context) => {
-    let citiesRef = db.collection('blog');
-    let snapshot = await citiesRef.get();
-    if (snapshot.empty) {
-        return {
-            statusCode: 204,
-            body: JSON.stringify({ message: "No blog posts found." })
-        };
-    } else {
+    try{
+        let citiesRef = db.collection('blog');
+        let snapshot = await citiesRef.get();
+        if (snapshot.empty) {
+            return {
+                statusCode: 204,
+                body: JSON.stringify({ message: "No blog posts found." })
+            };
+        } else {
+            return {
+                statusCode: 200,
+                body: JSON.stringify({ data: snapshot.docs.map( doc => doc.data()) })
+            };
+        }
+    } catch (e) {
         return {
             statusCode: 200,
-            body: JSON.stringify({ data: snapshot.docs.map( doc => doc.data()) })
+            body: JSON.stringify({ message: e })
         };
     }
 };
