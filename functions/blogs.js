@@ -27,13 +27,13 @@ exports.handler = async (event, context) => {
         } else {
             return {
                 statusCode: 200,
-                body: JSON.stringify({ data: snapshot.docs.map( doc => doc.data()) })
+                body: JSON.stringify({ data: "Data found.") })
             };
         }
     } catch (e) {
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: e })
+            body: JSON.stringify({ message: "Something went wrong." })
         };
     }
 };
