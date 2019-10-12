@@ -14,26 +14,32 @@ try {
 
 let db = admin.firestore();
 
-exports.handler = (event, context, callback) => {
-    let blogRef = db.collection('blog');
-    return blogRef.get()
-        .then(snapshot => {
-            if (snapshot.empty) {
-                return callback(null, {
-                    statusCode: 204,
-                    body: JSON.stringify({ message: "No blog posts found." })
-                });
-            } else {
-                return callback(null, {
-                    statusCode: 200,
-                    body: JSON.stringify({ data: "Data Found." })
-                })
-            }
-        })
-        .catch(err => {
-            return callback(null, {
-                statusCode: 400,
-                body: JSON.stringify(error)
-              })
-        });
-}
+exports.handler = async (event, context) => {
+    console.log("Blog", "In handler");
+
+    console.log("credentials", JSON.stringify(serviceAccount));
+    console.log("Database", process.env.FIRESTORE_DB_URL);
+
+    try{
+        let blogRef = db.collection('blog');
+        console.log("Blog", "Below line crashes on netlify production but works locally!");
+        let snapshot = await blogRef.get();
+        console.log("Blog", snapshot.empty);
+        if (snapshot.empty) {
+            return {
+                statusCode: 204,
+                body: JSON.stringify({ message: "No blog posts found." })
+            };
+        } else {
+            return {
+                statusCode: 200,
+                body: JSON.stringify({ data: "Data found."})
+            };
+        }
+    } catch (e) {
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ message: "Something went wrong." })
+        };
+    }
+};
