@@ -1,3 +1,4 @@
+const admin = require('firebase-admin');
 let serviceAccount = require('./config/init.js')();
 
 exports.handler = async (event, context) => {
