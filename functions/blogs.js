@@ -27,7 +27,7 @@ exports.handler = async (event, context) => {
         } else {
             return {
                 statusCode: 200,
-                body: JSON.stringify({ data: "Data found.") })
+                body: JSON.stringify({ data: "Data found."})
             };
         }
     } catch (e) {
