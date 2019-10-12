@@ -2,7 +2,8 @@ const admin = require('firebase-admin');
 let serviceAccount = require('./config/init.js')();
 
 let app = null;
-
+console.log("credentials", JSON.stringify(serviceAccount));
+console.log("Database", process.env.FIRESTORE_DB_URL);
 try {
     app = admin.app();
 } catch (error) {
@@ -16,9 +17,11 @@ try {
 let db = admin.firestore();
 
 exports.handler = async (event, context) => {
+    console.log("Blog", "In handler");
     try{
         let citiesRef = db.collection('blog');
-        // let snapshot = await citiesRef.get();
+        let snapshot = await citiesRef.get();
+        console.log("Blog", snapshot.);
         if (true) {
             return {
                 statusCode: 204,
