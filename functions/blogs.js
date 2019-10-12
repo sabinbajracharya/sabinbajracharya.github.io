@@ -20,7 +20,7 @@ exports.handler = async (event, context) => {
     if (snapshot.empty) {
         return {
             statusCode: 204,
-            body: JSON.stringify({ message: "No content found." })
+            body: JSON.stringify({ message: "No content found!" })
         };
     } else {
         return {
