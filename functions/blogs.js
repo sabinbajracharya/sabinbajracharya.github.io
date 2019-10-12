@@ -1,10 +1,17 @@
 const admin = require('firebase-admin');
 let serviceAccount = require('./config/init.js')();
 
-const app = admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: process.env.FIRESTORE_DB_URL,
-})
+let app = null;
+
+try {
+    app = admin.app
+} catch (error) {
+    app = admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        databaseURL: process.env.FIRESTORE_DB_URL,
+
+    });
+}
 
 let db = admin.firestore();
 
