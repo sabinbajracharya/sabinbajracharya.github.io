@@ -4,7 +4,7 @@ let serviceAccount = require('./config/init.js')();
 let app = null;
 
 try {
-    app = admin.app
+    app = admin.app();
 } catch (error) {
     app = admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
