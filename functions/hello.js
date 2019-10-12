@@ -16,8 +16,17 @@ try {
 let db = admin.firestore();
 
 exports.handler = async (event, context) => {
-    return {
-        statusCode: 200,
-        body: JSON.stringify({ text: `Sabin says hello!` })
-    };
+    let citiesRef = db.collection('blog');
+    let snapshot = await citiesRef.get();
+    if (snapshot.empty) {
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ message: "No blog posts found." })
+        };
+    } else {
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ data: snapshot.docs.map( doc => doc.data()) })
+        };
+    }
 };
