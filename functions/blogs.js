@@ -2,8 +2,6 @@ const admin = require('firebase-admin');
 let serviceAccount = require('./config/init.js')();
 
 let app = null;
-console.log("credentials", JSON.stringify(serviceAccount));
-console.log("Database", process.env.FIRESTORE_DB_URL);
 try {
     app = admin.app();
 } catch (error) {
@@ -18,9 +16,14 @@ let db = admin.firestore();
 
 exports.handler = async (event, context) => {
     console.log("Blog", "In handler");
+
+    console.log("credentials", JSON.stringify(serviceAccount));
+    console.log("Database", process.env.FIRESTORE_DB_URL);
+
     try{
-        let citiesRef = db.collection('blog');
-        let snapshot = await citiesRef.get();
+        let blogRef = db.collection('blog');
+        console.log("Blog", "Reference set!");
+        let snapshot = await blogRef.get();
         console.log("Blog", snapshot.empty);
         if (snapshot.empty) {
             return {
