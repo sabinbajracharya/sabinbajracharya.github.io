@@ -22,7 +22,7 @@ app.get('/blogs', async (req, res) => {
         const blogsRef = db.collection('blog')
         const snapshot = await blogsRef.get()
         const result = snapshot.docs.map( doc => doc.data())
-
+        res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
         res.send(result)
     } catch (error) {
         res.status(500).send(error)
