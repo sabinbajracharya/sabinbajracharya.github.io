@@ -33,9 +33,5 @@
   "dependencies": {
     "firebase-admin": "^7.4.0",
     "mongodb": "^3.3.2"
-  },
-  "engineStrict": true,
-  "engines": {
-    "node": "8.10.0"
   }
 }
