@@ -1,5 +1,8 @@
 import Browser
+import Browser.Navigation as Nav
 import Html exposing (..)
+import Html.Attributes exposing (..)
+import Url
 import Task
 import Time
 
@@ -7,13 +10,15 @@ import Time
 
 -- MAIN
 
-
+main : Program () Model Msg
 main =
-  Browser.element
+  Browser.application
     { init = init
     , view = view
     , update = update
     , subscriptions = subscriptions
+    , onUrlChange = UrlChanged
+    , onUrlRequest = LinkClicked
     }
 
 
@@ -22,15 +27,15 @@ main =
 
 
 type alias Model =
-  { zone : Time.Zone
-  , time : Time.Posix
+  { key : Nav.Key
+  , url: Url.Url
   }
 
 
-init : () -> (Model, Cmd Msg)
-init _ =
-  ( Model Time.utc (Time.millisToPosix 0)
-  , Task.perform AdjustTimeZone Time.here
+init : flags -> Url.Url -> Nav.Key -> (Model, Cmd Msg)
+init flags url key =
+  ( Model key url
+  , Cmd.none
   )
 
 
@@ -39,21 +44,24 @@ init _ =
 
 
 type Msg
-  = Tick Time.Posix
-  | AdjustTimeZone Time.Zone
+  = LinkClicked Browser.UrlRequest
+  | UrlChanged Url.Url
 
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    Tick newTime ->
-      ( { model | time = newTime }
-      , Cmd.none
-      )
+    LinkClicked urlRequest ->
+      case urlRequest of
+        Browser.Internal url ->
+          ( model, Nav.pushUrl model.key (Url.toString url) )
 
-    AdjustTimeZone newZone ->
-      ( { model | zone = newZone }
+        Browser.External href ->
+          ( model, Nav.load href )
+
+    UrlChanged url ->
+      ( { model | url = url }
       , Cmd.none
       )
 
@@ -64,21 +72,25 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Time.every 1000 Tick
+  Sub.none
 
 
 
 -- VIEW
 
 
-view : Model -> Html Msg
+view : Model -> Browser.Document Msg
 view model =
-  let
-    hour   = String.fromInt (Time.toHour   model.zone model.time)
-    minute = String.fromInt (Time.toMinute model.zone model.time)
-    second = String.fromInt (Time.toSecond model.zone model.time)
-  in
-  div []
-  [ h1 [] [ text "Time" ]
-  , h2 [] [ text (hour ++ ":" ++ minute ++ ":" ++ second) ]
-  ]
+  { title = "Sabin | Blog"
+  , body =
+    [ b [] [ text (Url.toString model.url) ]
+    , viewLink "/Blog"
+    , viewLink "/Projects"
+    , viewLink "/Rants"
+    , viewLink "/Talks"
+    ]
+  }
+
+viewLink : String -> Html Msg
+viewLink path =
+  li [] [ a [ href path ] [ text path] ]
