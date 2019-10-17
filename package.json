@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "checkForFirestoreDBUrl": "node ./scripts/check-firestore-db-url-exists.js",
     "checkForServiceAccountKey": "node ./scripts/check-for-service-account-key.js",
+    "serve": "elm-live src/main.elm --dir=public --open --pushstate -- --output=public/elm.min.js",
     "start": "npm-run-all --parallel start:**",
     "start:server": "netlify-lambda serve --config webpack.functions.js functions",
     "build": "npm-run-all --parallel build:**",
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/sabinbajracharya/personal-website#readme",
   "devDependencies": {
     "elm": "^0.19.0-no-deps",
+    "elm-live": "^4.0.1",
     "netlify-lambda": "^1.6.3",
     "npm-run-all": "^4.1.5",
     "uglify-js": "^3.6.1",
