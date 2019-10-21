@@ -11,6 +11,7 @@ import Svg.Attributes as SvgAttr
 import Task
 import Time
 import Url
+import UserInfo
 
 
 
@@ -89,7 +90,7 @@ view : Model -> Browser.Document Msg
 view model =
     { title = "Sabin | Blog"
     , body =
-        [ div [ class "section is-family-monospace" ]
+        [ div [ class "section" ]
             [ div [ class "container is-desktop" ]
                 [ div [ class "columns" ]
                     [ div [ class "column" ] [ leftNav ]
@@ -106,37 +107,46 @@ leftNav : Html Msg
 leftNav =
     div [ class "section" ]
         [ div [ class "container" ]
-            [ leftProfilePicColumn
-            , leftProfileNameColumn
-            , leftDescriptionColumn
+            [ viewLeftNav ]
+        ]
+
+viewLeftNav : Html Msg
+viewLeftNav =
+    case UserInfo.getUserInfo of
+        Ok userInfo ->
+            div []
+            [ leftProfilePicColumn userInfo.profile_pic_url
+            , leftProfileNameColumn userInfo.name
+            , leftDescriptionColumn userInfo.bio
             , leftLinkColumn
             , leftContactColumn
             ]
-        ]
+        Err error ->
+            div [] [ text ( Debug.toString error ) ]
 
 
 -- Left nav
 
-leftProfilePicColumn : Html Msg
-leftProfilePicColumn =
+leftProfilePicColumn : String -> Html Msg
+leftProfilePicColumn url =
     div [ class "column" ]
         [ figure [ class "image is-64x64" ]
-            [ img [ class "is-rounded", src "https://gokatz.me/photo.jpg" ] []
+            [ img [ class "is-rounded", src url ] []
             ]
         ]
 
 
-leftProfileNameColumn : Html Msg
-leftProfileNameColumn =
+leftProfileNameColumn : String -> Html Msg
+leftProfileNameColumn name =
     div [ class "column" ]
-        [ h4 [ class "title is-4" ] [ text "Sabin Bir Bajracharya" ]
+        [ h4 [ class "title is-4" ] [ text name ]
         ]
 
 
-leftDescriptionColumn : Html Msg
-leftDescriptionColumn =
+leftDescriptionColumn : String -> Html Msg
+leftDescriptionColumn bio =
     div [ class "column" ]
-        [ p [ class "is-size-6 has-text-grey" ] [ text "A fellow human 💕 Love building things over web | mobile | server... 💕 doing Dart, Kotlin, Rust and Node!!! Curated @emberjstweet 🐹\u{1F916} with 🔥" ]
+        [ p [ class "is-size-6 has-text-grey" ] [ text bio ]
         ]
 
 
@@ -213,3 +223,6 @@ post =
 space: String -> String -> Html Msg
 space property value =
   div [ style property value ] []
+
+--   css
+pad_md = "8px"
