@@ -106,26 +106,28 @@ view model =
 leftNav : Html Msg
 leftNav =
     div [ class "section" ]
-        [ div [ class "container" ]
-            [ viewLeftNav ]
+        [ div [ class "container" ] viewLeftNav
         ]
 
-viewLeftNav : Html Msg
+
+viewLeftNav : List (Html Msg)
 viewLeftNav =
     case UserInfo.getUserInfo of
         Ok userInfo ->
-            div []
             [ leftProfilePicColumn userInfo.profile_pic_url
             , leftProfileNameColumn userInfo.name
             , leftDescriptionColumn userInfo.bio
             , leftLinkColumn
             , leftContactColumn
             ]
+
         Err error ->
-            div [] [ text ( Debug.toString error ) ]
+            [ div [] [ text (Debug.toString error) ] ]
+
 
 
 -- Left nav
+
 
 leftProfilePicColumn : String -> Html Msg
 leftProfilePicColumn url =
@@ -176,13 +178,14 @@ leftContactColumn =
 
 contactLink : String -> String -> Html Msg
 contactLink viewBox path =
-    a [ style "border" "1px solid #ebebeb"
-      , style "border-radius" "50%"
-      , style "display" "inline-block"
-      , style "width" "2.1875rem"
-      , style "height" "35px"
-      , style "margin-right" "6px"
-      ]
+    a
+        [ style "border" "1px solid #ebebeb"
+        , style "border-radius" "50%"
+        , style "display" "inline-block"
+        , style "width" "2.1875rem"
+        , style "height" "35px"
+        , style "margin-right" "6px"
+        ]
         [ span [ class "icon is-small", style "margin" "8px" ]
             [ SVG.svg
                 [ SvgAttr.viewBox viewBox ]
@@ -194,35 +197,45 @@ contactLink viewBox path =
         ]
 
 
+
 -- Content
-content: Html Msg
+
+
+content : Html Msg
 content =
-  div [ class "section" ]
-  [ div [ class "container" ]
-    [ post
-    , post
-    ]
-  ]
+    div [ class "section" ]
+        [ div [ class "container" ]
+            [ post
+            , post
+            ]
+        ]
 
-post: Html Msg
+
+post : Html Msg
 post =
-  div [ class "column" ]
-  [ div []
-    [ span [ class "has-text-black" ] [ text "June 2019" ]
-    , span [ style "margin" "0px 0.3125rem" ] []
-    , span [ style "color" "#f7a046"] [ text "FUN WITH ARRAYS" ]
-    ]
-  , h3 [ class "title is-3" ] [ text "Fun With forEach" ]
-  , p []
-    [ text "Have fun with forEach by guessing few snippets that we might not encounter in real-time applications. Share your fun forEach snippets and let's all have fun! 👯‍♂️👯‍♂️" ]
-  , space "margin-top" "16px"
-  , a [ href ""] [ text "Read" ]
-  , space "margin-bottom" "32px"
-  ]
+    div [ class "column" ]
+        [ div []
+            [ span [ class "has-text-black" ] [ text "June 2019" ]
+            , span [ style "margin" "0px 0.3125rem" ] []
+            , span [ style "color" "#f7a046" ] [ text "FUN WITH ARRAYS" ]
+            ]
+        , h3 [ class "title is-3" ] [ text "Fun With forEach" ]
+        , p []
+            [ text "Have fun with forEach by guessing few snippets that we might not encounter in real-time applications. Share your fun forEach snippets and let's all have fun! 👯\u{200D}♂️👯\u{200D}♂️" ]
+        , space "margin-top" "16px"
+        , a [ href "" ] [ text "Read" ]
+        , space "margin-bottom" "32px"
+        ]
 
-space: String -> String -> Html Msg
+
+space : String -> String -> Html Msg
 space property value =
-  div [ style property value ] []
+    div [ style property value ] []
+
+
 
 --   css
-pad_md = "8px"
+
+
+pad_md =
+    "8px"
