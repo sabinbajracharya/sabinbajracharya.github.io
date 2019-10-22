@@ -84,7 +84,7 @@ update msg =
                     ( Success userInfo , Cmd.none )
 
                 Err error ->
-                    ( Failure ( Debug.toString error ) , Cmd.none )
+                    ( Failure (errorToString error) , Cmd.none )
 
 
 viewLeftNav : Model -> List (Html Msg)
@@ -172,3 +172,22 @@ contactLink viewBox path =
                 ]
             ]
         ]
+
+
+errorToString : Http.Error -> String
+errorToString err =
+    case err of
+        Http.Timeout ->
+            "Timeout exceeded"
+
+        Http.NetworkError ->
+            "Network error"
+
+        Http.BadStatus status ->
+            "Bad Status " ++ String.fromInt status
+
+        Http.BadUrl url ->
+            "Malformed url: " ++ url
+
+        Http.BadBody body ->
+            "The JSON body was not what I expected it to be:" ++ " " ++ body
