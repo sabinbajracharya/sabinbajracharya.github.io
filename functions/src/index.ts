@@ -29,6 +29,16 @@ app.get('/blogs', async (req, res) => {
     }
 })
 
+app.get('/user', async (req, res) => {
+    const user = {
+        "name":  "Sabin Bir Bajracharya",
+        "bio": "A fellow human 💕 Love building things over web | mobile | server... 💕 doing Dart, Kotlin, Rust and Node!!! Curated @elm 🐹🤖 with 🔥",
+        "profile_pic_url": "https://gokatz.me/photo.jpg"
+    }
+    res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+    res.send(user)
+})
+
 exports.api = functions.https.onRequest(app)
 
 // https://firebase.google.com/docs/functions/http-events
