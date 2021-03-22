@@ -9,12 +9,14 @@ assets="public/assets"
 source="src/main.elm"
 js="${out}/elm.js"
 min="${out}/elm.min.js"
+appads="public/app-ads.txt"
 
 elm make $source --optimize --output=$js $@
 
 uglifyjs $js --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' | uglifyjs --mangle --output=$min
 
 cp $indexfile $out
+cp $appads $out
 cp -R $assets $out
 
 echo "Compiled size:$(cat $js | wc -c) bytes  ($js)"
