@@ -10,7 +10,7 @@ source="src/main.elm"
 js="${out}/elm.js"
 min="${out}/elm.min.js"
 appads="public/app-ads.txt"
-pubdev="google6c530e6b95955bf4.html"
+pubdev="public/google6c530e6b95955bf4.html"
 
 elm make $source --optimize --output=$js $@
 
